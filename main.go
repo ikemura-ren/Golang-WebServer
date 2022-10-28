@@ -10,6 +10,6 @@ func FirstHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", FirstHandler)
+	http.HandleFunc("/", FirstHandler) // Hello, Worldを返すハンドラ
 	http.ListenAndServe(":8080", nil)
 }
