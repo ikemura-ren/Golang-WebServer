@@ -10,7 +10,14 @@ func FirstHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func SecondHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello" + r.FormValue("hoge"))
+	if r.Method == "GET" {
+		fmt.Fprintf(w, "Hello" + r.FormValue("hoge"))
+	}
+	if r.Method == "POST" {
+		r.ParseForm()
+		text := r.Form.Get("text")
+		fmt.Fprintf(w, "Hello" + text)
+	}
 }
 
 func main() {
