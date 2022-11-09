@@ -38,6 +38,10 @@ func ThirdHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ForceHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello world")
+}
+
 func main() {
 	http.HandleFunc("/", FirstHandler) // Hello, Worldを返すハンドラ
 	http.HandleFunc("/second", SecondHandler) // 値を送ってHello + [param]を返すハンドラ（GET）
