@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"math/rand"
 	"time"
+	"strconv"  
 )
 
 func FirstHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,11 +44,21 @@ func ForceHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w,header)
 
 }
+func FifthHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		r.ParseForm()
+		a := r.Form.Get("num")
+		b, _ := strconv.Atoi(a)
+		num := 100 + b
+		fmt.Fprint(w, num)
+	}
+}
 
 func main() {
 	http.HandleFunc("/", FirstHandler) // Hello, Worldを返すハンドラ
 	http.HandleFunc("/second", SecondHandler) // 値を送ってHello + [param]を返すハンドラ（GET）
 	http.HandleFunc("/third", ThirdHandler) // GETリクエストでおみくじ結果を返すハンドラ（GET）
 	http.HandleFunc("/force",ForceHandler) // GETリクエストでおみくじ結果を返すハンドラ（GET）
+	http.HandleFunc("/fifth",FifthHandler) // GETリクエストでおみくじ結果を返すハンドラ（GET）
 	http.ListenAndServe(":8080", nil)
 }
