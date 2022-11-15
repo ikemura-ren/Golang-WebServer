@@ -54,11 +54,19 @@ func FifthHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func SixthHandler(w http.ResponseWriter, r *http.Request) {
+	//リクエストボディを返すハンドラ
+	body := r.Body
+	fmt.Fprintln(w, body)
+}
+
+
 func main() {
 	http.HandleFunc("/", FirstHandler) // Hello, Worldを返すハンドラ
 	http.HandleFunc("/second", SecondHandler) // 値を送ってHello + [param]を返すハンドラ（GET）
 	http.HandleFunc("/third", ThirdHandler) // GETリクエストでおみくじ結果を返すハンドラ（GET）
-	http.HandleFunc("/force",ForceHandler) // GETリクエストでおみくじ結果を返すハンドラ（GET）
-	http.HandleFunc("/fifth",FifthHandler) // GETリクエストでおみくじ結果を返すハンドラ（GET）
+	http.HandleFunc("/force",ForceHandler) // GETリクエストでリクエストヘッダーの情報を返すハンドラ
+	http.HandleFunc("/fifth",FifthHandler) // POSTリクエストから数値を受け取って計算して返すハンドラ
+	http.HandleFunc("/sixth",SixthHandler) // GETリクエストでリクエストボディの情報を返すハンドラ
 	http.ListenAndServe(":8080", nil)
 }
